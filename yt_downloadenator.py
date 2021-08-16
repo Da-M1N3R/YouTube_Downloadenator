@@ -160,6 +160,20 @@ def download2160p():
     print('DOWNLOADED 2160p')
     return tk.Label(root, text = 'DOWNLOADED 2160p', font = 'arial 15').grid(column=c1, row=r6, columnspan=cspan)
 
+# Download Audio
+def get_audio():
+    ytv = YouTube(str(link.get()))
+    print("Checking Audio...")
+    print("Available audio...")
+    audio = ytv.streams.filter(type = "audio")
+    print(audio)
+    if len(audio) == 0:
+        return tk.Label(root, text = 'Audio UNAVAILABLE', font = 'arial 15', fg = 'red').grid(column=c1, row=r6, columnspan=cspan)
+    audio = audio[0]
+    audio.download()
+    print('DOWNLOADED Audio')
+    return tk.Label(root, text = 'DOWNLOADED Audio', font = 'arial 15').grid(column=c1, row=r6, columnspan=cspan)
+
 # Download thumbnail
 def get_thumbnail():
     print("YouTube video Link: ")
@@ -186,7 +200,7 @@ def about_ytv():
     tk.Label(root, text = str(ytv.length) + " seconds", font = 'arial 15').grid(column=c2, row=r10, columnspan=3)
     # Thumbnail
     tk.Label(root, text = 'Thumbnail:', font = 'arial 15').grid(column=c1, row=r11)
-    tk.Button(root, text = "Get Thumbnail", font = 'arial 15 bold', bg = 'blue', command = get_thumbnail).grid(column=c2, row=r11, columnspan=3)
+    tk.Button(root, text = "Get Thumbnail", font = 'arial 15 bold', bg = 'yellow', command = get_thumbnail).grid(column=c2, row=r11, columnspan=3)
     '''
     # Description
     tk.Label(root, text = 'Description:', font = 'arial 15').grid(column=c1, row=r11)
@@ -197,8 +211,10 @@ def about_ytv():
 tk.Button(root, text = 'DOWNLOAD', font = 'arial 15 bold', bg = 'pink', state = 'disable').grid(column=c1, row=r3, columnspan=2)
 # About button
 tk.Button(root, text = 'ABOUT', font = 'arial 15 bold', bg = 'light blue', padx = 2, command = about_ytv).grid(column=c3, row=r3, columnspan=2)
+# Audio button
+tk.Button(root, width = 5, text = "Audio", font = "arial 20 bold", bg = "blue", padx = 2, command = get_audio).grid(column=c5, row=r4)
 
-# Different resolutions
+# Resolution button
 tk.Button(root, width = 5, text = "144p", font = "arial 20 bold", bg = "red", padx = 2, command = download144p).grid(column=c1, row=r4)
 tk.Button(root, width = 5, text = "240p", font = "arial 20 bold", bg = "red", padx = 2, command = download240p).grid(column=c2, row=r4)
 tk.Button(root, width = 5, text = "360p", font = "arial 20 bold", bg = "red", padx = 2, command = download360p).grid(column=c3, row=r4)
